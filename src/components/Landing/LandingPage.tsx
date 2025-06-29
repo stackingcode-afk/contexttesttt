@@ -482,80 +482,78 @@ const LandingPage: React.FC = () => {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className={`bg-glass-bg backdrop-blur-xl rounded-2xl border transition-all duration-300 relative ${
-                  plan.popular 
-                    ? 'border-terminal-green shadow-lg shadow-terminal-green/20 scale-105' 
-                    : plan.isCustom
-                    ? 'border-green-500'
-                    : 'border-glass-border hover:border-glass-border-hover'
-                }`}
-                style={{ 
-                  paddingTop: plan.popular || plan.isCustom ? '3.5rem' : '1.5rem',
-                  paddingBottom: '1.5rem',
-                  paddingLeft: '1.5rem',
-                  paddingRight: '1.5rem'
-                }}
+                className="relative"
               >
+                {/* Badge positioned OUTSIDE and ABOVE the card */}
                 {plan.popular && (
-                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                    <div className="bg-gradient-to-r from-terminal-green to-terminal-green-dark text-black px-4 py-1 rounded-full text-xs font-bold">
+                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-20">
+                    <div className="bg-gradient-to-r from-terminal-green to-terminal-green-dark text-black px-4 py-1 rounded-full text-xs font-bold shadow-lg">
                       Most Popular
                     </div>
                   </div>
                 )}
 
                 {plan.isCustom && (
-                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                    <div className="bg-gradient-to-r from-green-500 to-terminal-green text-black px-4 py-1 rounded-full text-xs font-bold">
+                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-20">
+                    <div className="bg-gradient-to-r from-green-500 to-terminal-green text-black px-4 py-1 rounded-full text-xs font-bold shadow-lg">
                       Enterprise
                     </div>
                   </div>
                 )}
 
-                <div className="text-center mb-6">
-                  {plan.isCustom && (
-                    <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-terminal-green rounded-xl flex items-center justify-center mx-auto mb-3">
-                      <Workflow className="w-6 h-6 text-black" />
-                    </div>
-                  )}
-                  <h3 className="text-xl font-bold text-white mb-2">{plan.name}</h3>
-                  <p className="text-gray-400 text-sm mb-3">{plan.description}</p>
-                  <div className="text-3xl font-bold text-terminal-green mb-2">
-                    {plan.price === 'Custom' ? (
-                      <span className="text-green-400">Custom</span>
-                    ) : (
-                      <>
-                        ${plan.price}
-                        <span className="text-sm text-gray-400">/{plan.period}</span>
-                      </>
+                {/* Card with consistent padding */}
+                <div className={`bg-glass-bg backdrop-blur-xl rounded-2xl p-6 border transition-all duration-300 relative ${
+                  plan.popular 
+                    ? 'border-terminal-green shadow-lg shadow-terminal-green/20 scale-105' 
+                    : plan.isCustom
+                    ? 'border-green-500'
+                    : 'border-glass-border hover:border-glass-border-hover'
+                }`}>
+                  <div className="text-center mb-6">
+                    {plan.isCustom && (
+                      <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-terminal-green rounded-xl flex items-center justify-center mx-auto mb-3">
+                        <Workflow className="w-6 h-6 text-black" />
+                      </div>
                     )}
+                    <h3 className="text-xl font-bold text-white mb-2">{plan.name}</h3>
+                    <p className="text-gray-400 text-sm mb-3">{plan.description}</p>
+                    <div className="text-3xl font-bold text-terminal-green mb-2">
+                      {plan.price === 'Custom' ? (
+                        <span className="text-green-400">Custom</span>
+                      ) : (
+                        <>
+                          ${plan.price}
+                          <span className="text-sm text-gray-400">/{plan.period}</span>
+                        </>
+                      )}
+                    </div>
                   </div>
+
+                  <ul className="space-y-2 mb-6">
+                    {plan.features.map((feature) => (
+                      <li key={feature} className="flex items-center space-x-2 text-sm">
+                        <Check className={`w-4 h-4 flex-shrink-0 ${plan.isCustom ? 'text-green-400' : 'text-terminal-green'}`} />
+                        <span className="text-gray-300">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={plan.isCustom ? handleContactSales : handleGetStarted}
+                    className={`w-full py-3 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center space-x-2 text-sm ${
+                      plan.ctaStyle === 'primary'
+                        ? 'bg-gradient-to-r from-terminal-green to-terminal-green-dark text-black hover:shadow-glow'
+                        : plan.ctaStyle === 'custom'
+                        ? 'bg-gradient-to-r from-green-500 to-terminal-green text-black hover:bg-green-600'
+                        : 'bg-glass-hover text-white border border-glass-border hover:border-terminal-green'
+                    }`}
+                  >
+                    {plan.isCustom && <Phone className="w-4 h-4" />}
+                    <span>{plan.cta}</span>
+                  </motion.button>
                 </div>
-
-                <ul className="space-y-2 mb-6">
-                  {plan.features.map((feature) => (
-                    <li key={feature} className="flex items-center space-x-2 text-sm">
-                      <Check className={`w-4 h-4 flex-shrink-0 ${plan.isCustom ? 'text-green-400' : 'text-terminal-green'}`} />
-                      <span className="text-gray-300">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={plan.isCustom ? handleContactSales : handleGetStarted}
-                  className={`w-full py-3 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center space-x-2 text-sm ${
-                    plan.ctaStyle === 'primary'
-                      ? 'bg-gradient-to-r from-terminal-green to-terminal-green-dark text-black hover:shadow-glow'
-                      : plan.ctaStyle === 'custom'
-                      ? 'bg-gradient-to-r from-green-500 to-terminal-green text-black hover:bg-green-600'
-                      : 'bg-glass-hover text-white border border-glass-border hover:border-terminal-green'
-                  }`}
-                >
-                  {plan.isCustom && <Phone className="w-4 h-4" />}
-                  <span>{plan.cta}</span>
-                </motion.button>
               </motion.div>
             ))}
           </div>

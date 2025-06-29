@@ -227,7 +227,30 @@ const BillingSettings: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
                 whileHover={!isCurrentPlan ? { scale: 1.02 } : {}}
-                className={`bg-card-bg rounded-xl border transition relative overflow-hidden ${
+                className="relative"
+              >
+                {/* Badge positioned OUTSIDE and ABOVE the card */}
+                {plan.popular && (
+                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-20">
+                    <div className="bg-gradient-to-r from-terminal-green to-terminal-green-dark text-black px-4 py-1 rounded-full text-xs font-bold font-mono flex items-center space-x-1 shadow-lg">
+                      <Star className="w-3 h-3" />
+                      <span>MOST POPULAR</span>
+                    </div>
+                  </div>
+                )}
+
+                {/* Enterprise badge positioned OUTSIDE and ABOVE the card */}
+                {plan.isCustom && (
+                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-20">
+                    <div className="bg-gradient-to-r from-green-500 to-terminal-green text-black px-4 py-1 rounded-full text-xs font-bold font-mono flex items-center space-x-1 shadow-lg">
+                      <Workflow className="w-3 h-3" />
+                      <span>ENTERPRISE</span>
+                    </div>
+                  </div>
+                )}
+
+                {/* Card with consistent padding */}
+                <div className={`bg-card-bg rounded-xl p-6 border transition relative overflow-hidden ${
                   isCurrentPlan 
                     ? 'border-terminal-green shadow-glow' 
                     : plan.popular 
@@ -235,90 +258,64 @@ const BillingSettings: React.FC = () => {
                     : plan.isCustom
                     ? 'border-green-500/50'
                     : 'border-border-light hover:border-terminal-green/50'
-                }`}
-                style={{ 
-                  paddingTop: '4rem', // Give ALL cards enough top padding for badges
-                  paddingBottom: '2rem',
-                  paddingLeft: '1.5rem',
-                  paddingRight: '1.5rem'
-                }}
-              >
-                {/* Popular badge */}
-                {plan.popular && (
-                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
-                    <div className="bg-gradient-to-r from-terminal-green to-terminal-green-dark text-black px-4 py-1 rounded-full text-xs font-bold font-mono flex items-center space-x-1">
-                      <Star className="w-3 h-3" />
-                      <span>MOST POPULAR</span>
-                    </div>
-                  </div>
-                )}
-
-                {/* Enterprise badge */}
-                {plan.isCustom && (
-                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
-                    <div className="bg-gradient-to-r from-green-500 to-terminal-green text-black px-4 py-1 rounded-full text-xs font-bold font-mono flex items-center space-x-1">
-                      <Workflow className="w-3 h-3" />
-                      <span>ENTERPRISE</span>
-                    </div>
-                  </div>
-                )}
-
-                <div className="text-center mb-8">
-                  {plan.isCustom && (
-                    <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-terminal-green rounded-lg flex items-center justify-center mx-auto mb-4">
-                      <Workflow className="w-8 h-8 text-black" />
-                    </div>
-                  )}
-                  <h3 className="text-xl font-bold text-white mb-2 font-mono">{plan.name}</h3>
-                  <p className="text-text-gray text-sm mb-4 font-mono">{plan.description}</p>
-                  <div className="text-3xl font-bold text-terminal-green mb-2 font-mono">
-                    {plan.price === 'Custom' ? (
-                      <span className="text-green-400">Custom</span>
-                    ) : (
-                      <>
-                        ${plan.price}
-                        <span className="text-sm text-text-gray">/{plan.interval}</span>
-                      </>
+                }`}>
+                  <div className="text-center mb-8">
+                    {plan.isCustom && (
+                      <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-terminal-green rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <Workflow className="w-8 h-8 text-black" />
+                      </div>
                     )}
+                    <h3 className="text-xl font-bold text-white mb-2 font-mono">{plan.name}</h3>
+                    <p className="text-text-gray text-sm mb-4 font-mono">{plan.description}</p>
+                    <div className="text-3xl font-bold text-terminal-green mb-2 font-mono">
+                      {plan.price === 'Custom' ? (
+                        <span className="text-green-400">Custom</span>
+                      ) : (
+                        <>
+                          ${plan.price}
+                          <span className="text-sm text-text-gray">/{plan.interval}</span>
+                        </>
+                      )}
+                    </div>
                   </div>
+
+                  <ul className="space-y-3 mb-8">
+                    {plan.features.map((feature) => (
+                      <li key={feature} className="flex items-center space-x-3 text-sm">
+                        <CheckCircle className={`w-4 h-4 flex-shrink-0 ${plan.isCustom ? 'text-green-400' : 'text-terminal-green'}`} />
+                        <span className="text-text-gray">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={plan.isCustom ? handleContactSales : () => canUpgrade && handleUpgrade(plan.whopPlanId!)}
+                    disabled={isCurrentPlan || isLoading}
+                    className={`w-full py-3 rounded-lg font-semibold transition flex items-center justify-center space-x-2 text-sm font-mono disabled:opacity-50 disabled:cursor-not-allowed ${
+                      plan.popular 
+                        ? 'bg-gradient-to-r from-terminal-green to-terminal-green-dark text-black hover:shadow-glow'
+                        : plan.isCustom
+                        ? 'bg-gradient-to-r from-green-500 to-terminal-green text-black hover:bg-green-600'
+                        : isCurrentPlan
+                        ? 'bg-gray-700 text-text-gray cursor-not-allowed'
+                        : 'bg-card-hover text-white border border-border-light hover:border-terminal-green'
+                    }`}
+                  >
+                    {plan.isCustom && <Phone className="w-4 h-4" />}
+                    <span>
+                      {isCurrentPlan 
+                        ? 'Current Plan' 
+                        : buttonStates[`upgrade-${plan.id}`] 
+                          ? 'Processing...' 
+                          : plan.isCustom && isTestMode
+                          ? 'Test Enterprise'
+                          : plan.cta || (isTestMode ? 'Test Upgrade' : 'Upgrade')
+                      }
+                    </span>
+                  </motion.button>
                 </div>
-
-                <ul className="space-y-3 mb-8">
-                  {plan.features.map((feature) => (
-                    <li key={feature} className="flex items-center space-x-3 text-sm">
-                      <CheckCircle className={`w-4 h-4 flex-shrink-0 ${plan.isCustom ? 'text-green-400' : 'text-terminal-green'}`} />
-                      <span className="text-text-gray">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={plan.isCustom ? handleContactSales : () => canUpgrade && handleUpgrade(plan.whopPlanId!)}
-                  disabled={isCurrentPlan || isLoading}
-                  className={`w-full py-3 rounded-lg font-semibold transition flex items-center justify-center space-x-2 text-sm font-mono disabled:opacity-50 disabled:cursor-not-allowed ${
-                    plan.popular 
-                      ? 'bg-gradient-to-r from-terminal-green to-terminal-green-dark text-black hover:shadow-glow'
-                      : plan.isCustom
-                      ? 'bg-gradient-to-r from-green-500 to-terminal-green text-black hover:bg-green-600'
-                      : isCurrentPlan
-                      ? 'bg-gray-700 text-text-gray cursor-not-allowed'
-                      : 'bg-card-hover text-white border border-border-light hover:border-terminal-green'
-                  }`}
-                >
-                  {plan.isCustom && <Phone className="w-4 h-4" />}
-                  <span>
-                    {isCurrentPlan 
-                      ? 'Current Plan' 
-                      : buttonStates[`upgrade-${plan.id}`] 
-                        ? 'Processing...' 
-                        : plan.isCustom && isTestMode
-                        ? 'Test Enterprise'
-                        : plan.cta || (isTestMode ? 'Test Upgrade' : 'Upgrade')
-                    }
-                  </span>
-                </motion.button>
               </motion.div>
             );
           })}
