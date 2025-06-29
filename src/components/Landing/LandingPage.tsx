@@ -482,13 +482,14 @@ const LandingPage: React.FC = () => {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className={`bg-glass-bg backdrop-blur-xl rounded-2xl p-6 border transition-all duration-300 relative ${
+                className={`bg-glass-bg backdrop-blur-xl rounded-2xl border transition-all duration-300 relative ${
                   plan.popular 
                     ? 'border-terminal-green shadow-lg shadow-terminal-green/20 scale-105' 
                     : plan.isCustom
-                    ? 'border-green-500 shadow-lg shadow-green-500/20'
+                    ? 'border-green-500'
                     : 'border-glass-border hover:border-glass-border-hover'
                 }`}
+                style={{ paddingTop: plan.popular || plan.isCustom ? '3rem' : '1.5rem', paddingBottom: '1.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}
               >
                 {plan.popular && (
                   <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
@@ -543,7 +544,7 @@ const LandingPage: React.FC = () => {
                     plan.ctaStyle === 'primary'
                       ? 'bg-gradient-to-r from-terminal-green to-terminal-green-dark text-black hover:shadow-glow'
                       : plan.ctaStyle === 'custom'
-                      ? 'bg-gradient-to-r from-green-500 to-terminal-green text-black hover:shadow-lg hover:shadow-green-500/30'
+                      ? 'bg-gradient-to-r from-green-500 to-terminal-green text-black hover:bg-green-600'
                       : 'bg-glass-hover text-white border border-glass-border hover:border-terminal-green'
                   }`}
                 >

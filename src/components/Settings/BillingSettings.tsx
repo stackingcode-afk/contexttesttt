@@ -227,15 +227,16 @@ const BillingSettings: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
                 whileHover={!isCurrentPlan ? { scale: 1.02 } : {}}
-                className={`bg-card-bg rounded-xl p-6 border transition relative overflow-hidden ${
+                className={`bg-card-bg rounded-xl border transition relative overflow-hidden ${
                   isCurrentPlan 
                     ? 'border-terminal-green shadow-glow' 
                     : plan.popular 
                     ? 'border-terminal-green/50 shadow-lg shadow-terminal-green/20' 
                     : plan.isCustom
-                    ? 'border-green-500/50 shadow-lg shadow-green-500/20'
+                    ? 'border-green-500/50'
                     : 'border-border-light hover:border-terminal-green/50'
                 }`}
+                style={{ paddingTop: plan.popular || plan.isCustom ? '3rem' : '1.5rem', paddingBottom: '1.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}
               >
                 {/* Popular badge */}
                 {plan.popular && (
@@ -257,7 +258,7 @@ const BillingSettings: React.FC = () => {
                   </div>
                 )}
 
-                <div className="text-center mb-8 mt-4">
+                <div className="text-center mb-8">
                   {plan.isCustom && (
                     <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-terminal-green rounded-lg flex items-center justify-center mx-auto mb-4">
                       <Workflow className="w-8 h-8 text-black" />
@@ -295,7 +296,7 @@ const BillingSettings: React.FC = () => {
                     plan.popular 
                       ? 'bg-gradient-to-r from-terminal-green to-terminal-green-dark text-black hover:shadow-glow'
                       : plan.isCustom
-                      ? 'bg-gradient-to-r from-green-500 to-terminal-green text-black hover:shadow-lg hover:shadow-green-500/30'
+                      ? 'bg-gradient-to-r from-green-500 to-terminal-green text-black hover:bg-green-600'
                       : isCurrentPlan
                       ? 'bg-gray-700 text-text-gray cursor-not-allowed'
                       : 'bg-card-hover text-white border border-border-light hover:border-terminal-green'
