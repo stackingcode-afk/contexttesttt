@@ -482,7 +482,7 @@ const LandingPage: React.FC = () => {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className={`bg-glass-bg backdrop-blur-xl rounded-2xl border transition-all duration-300 relative overflow-hidden ${
+                className={`bg-glass-bg backdrop-blur-xl rounded-2xl border transition-all duration-300 relative ${
                   plan.popular 
                     ? 'border-terminal-green shadow-lg shadow-terminal-green/20 scale-105' 
                     : plan.isCustom
@@ -490,20 +490,20 @@ const LandingPage: React.FC = () => {
                     : 'border-glass-border hover:border-glass-border-hover'
                 }`}
               >
-                {/* Badge positioned ON the top border of the card - Single line */}
+                {/* Badge positioned ON the top border - readable and layered */}
                 {plan.popular && (
-                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-20">
-                    <div className="bg-gradient-to-r from-terminal-green to-terminal-green-dark text-black px-4 py-1.5 rounded-full text-xs font-bold flex items-center space-x-1.5 shadow-lg whitespace-nowrap">
+                  <div className="absolute -top-0 left-1/2 transform -translate-x-1/2 z-30">
+                    <div className="bg-gradient-to-r from-terminal-green to-terminal-green-dark text-black px-6 py-2 rounded-b-xl text-xs font-bold flex items-center space-x-2 shadow-xl border-x border-b border-terminal-green/30">
                       <Star className="w-3 h-3 flex-shrink-0" />
                       <span>MOST POPULAR</span>
                     </div>
                   </div>
                 )}
 
-                {/* Enterprise badge positioned ON the top border of the card - Single line */}
+                {/* Enterprise badge positioned ON the top border - readable and layered */}
                 {plan.isCustom && (
-                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-20">
-                    <div className="bg-gradient-to-r from-green-500 to-terminal-green text-black px-4 py-1.5 rounded-full text-xs font-bold flex items-center space-x-1.5 shadow-lg whitespace-nowrap">
+                  <div className="absolute -top-0 left-1/2 transform -translate-x-1/2 z-30">
+                    <div className="bg-gradient-to-r from-green-500 to-terminal-green text-black px-6 py-2 rounded-b-xl text-xs font-bold flex items-center space-x-2 shadow-xl border-x border-b border-green-500/30">
                       <Workflow className="w-3 h-3 flex-shrink-0" />
                       <span>ENTERPRISE</span>
                     </div>
@@ -512,7 +512,7 @@ const LandingPage: React.FC = () => {
 
                 {/* Card content with proper padding */}
                 <div className="p-6">
-                  <div className={`text-center mb-6 ${plan.popular || plan.isCustom ? 'mt-4' : ''}`}>
+                  <div className={`text-center mb-6 ${plan.popular || plan.isCustom ? 'mt-6' : ''}`}>
                     {plan.isCustom && (
                       <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-terminal-green rounded-xl flex items-center justify-center mx-auto mb-3">
                         <Workflow className="w-6 h-6 text-black" />
