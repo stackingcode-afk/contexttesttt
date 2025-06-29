@@ -11,6 +11,7 @@ import ProfileBuilder from './components/Profiles/ProfileBuilder';
 import AIChat from './components/Chat/AIChat';
 import PromptLibrary from './components/Prompts/PromptLibrary';
 import TeamWorkspace from './components/Team/TeamWorkspace.tsx';
+import GoogleDriveIntegration from './components/GoogleDrive/GoogleDriveIntegration';
 import Settings from './components/Settings/Settings';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -40,6 +41,8 @@ const AppContent: React.FC = () => {
         return <AIChat />;
       case 'prompts':
         return <PromptLibrary />;
+      case 'google-drive':
+        return <GoogleDriveIntegration />;
       case 'team':
         return <TeamWorkspace />;
       case 'settings':
@@ -197,6 +200,11 @@ function App() {
               </ProtectedRoute>
             } />
             <Route path="/prompts" element={
+              <ProtectedRoute>
+                <AppContent />
+              </ProtectedRoute>
+            } />
+            <Route path="/google-drive" element={
               <ProtectedRoute>
                 <AppContent />
               </ProtectedRoute>
