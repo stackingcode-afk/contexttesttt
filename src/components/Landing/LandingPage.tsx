@@ -484,25 +484,30 @@ const LandingPage: React.FC = () => {
                 transition={{ delay: index * 0.1 }}
                 className="relative"
               >
-                {/* Badge positioned OUTSIDE and ABOVE the card */}
+                {/* Badge positioned OUTSIDE and ABOVE the card - Single line with proper spacing */}
                 {plan.popular && (
-                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-20">
-                    <div className="bg-gradient-to-r from-terminal-green to-terminal-green-dark text-black px-4 py-1 rounded-full text-xs font-bold shadow-lg">
-                      Most Popular
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20">
+                    <div className="bg-gradient-to-r from-terminal-green to-terminal-green-dark text-black px-4 py-1.5 rounded-full text-xs font-bold flex items-center space-x-1.5 shadow-lg whitespace-nowrap">
+                      <Star className="w-3 h-3 flex-shrink-0" />
+                      <span>MOST POPULAR</span>
                     </div>
                   </div>
                 )}
 
+                {/* Enterprise badge positioned OUTSIDE and ABOVE the card - Single line */}
                 {plan.isCustom && (
-                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-20">
-                    <div className="bg-gradient-to-r from-green-500 to-terminal-green text-black px-4 py-1 rounded-full text-xs font-bold shadow-lg">
-                      Enterprise
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20">
+                    <div className="bg-gradient-to-r from-green-500 to-terminal-green text-black px-4 py-1.5 rounded-full text-xs font-bold flex items-center space-x-1.5 shadow-lg whitespace-nowrap">
+                      <Workflow className="w-3 h-3 flex-shrink-0" />
+                      <span>ENTERPRISE</span>
                     </div>
                   </div>
                 )}
 
-                {/* Card with consistent padding */}
-                <div className={`bg-glass-bg backdrop-blur-xl rounded-2xl p-6 border transition-all duration-300 relative ${
+                {/* Card with consistent padding and proper top margin for badges */}
+                <div className={`bg-glass-bg backdrop-blur-xl rounded-2xl p-6 border transition-all duration-300 ${
+                  plan.popular || plan.isCustom ? 'mt-4' : ''
+                } ${
                   plan.popular 
                     ? 'border-terminal-green shadow-lg shadow-terminal-green/20 scale-105' 
                     : plan.isCustom
