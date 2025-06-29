@@ -227,7 +227,7 @@ const BillingSettings: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
                 whileHover={!isCurrentPlan ? { scale: 1.02 } : {}}
-                className={`bg-card-bg rounded-xl border transition relative overflow-hidden ${
+                className={`bg-card-bg rounded-3xl border transition relative overflow-hidden ${
                   isCurrentPlan 
                     ? 'border-terminal-green shadow-glow' 
                     : plan.popular 
@@ -240,9 +240,9 @@ const BillingSettings: React.FC = () => {
                 {/* Badge positioned exactly ON the top border */}
                 {plan.popular && (
                   <div className="absolute -top-px left-1/2 transform -translate-x-1/2 z-30">
-                    <div className="bg-gradient-to-r from-terminal-green to-terminal-green-dark text-black px-4 py-1 text-xs font-bold font-mono flex items-center space-x-1 shadow-lg border border-terminal-green/30">
+                    <div className="bg-gradient-to-r from-terminal-green to-terminal-green-dark text-black px-4 py-1 rounded-full text-xs font-bold font-mono flex items-center space-x-1 shadow-lg border border-terminal-green/30">
                       <Star className="w-3 h-3 flex-shrink-0" />
-                      <span>MOST POPULAR</span>
+                      <span className="whitespace-nowrap">MOST POPULAR</span>
                     </div>
                   </div>
                 )}
@@ -250,9 +250,9 @@ const BillingSettings: React.FC = () => {
                 {/* Enterprise badge positioned exactly ON the top border */}
                 {plan.isCustom && (
                   <div className="absolute -top-px left-1/2 transform -translate-x-1/2 z-30">
-                    <div className="bg-gradient-to-r from-green-500 to-terminal-green text-black px-4 py-1 text-xs font-bold font-mono flex items-center space-x-1 shadow-lg border border-green-500/30">
+                    <div className="bg-gradient-to-r from-green-500 to-terminal-green text-black px-4 py-1 rounded-full text-xs font-bold font-mono flex items-center space-x-1 shadow-lg border border-green-500/30">
                       <Workflow className="w-3 h-3 flex-shrink-0" />
-                      <span>ENTERPRISE</span>
+                      <span className="whitespace-nowrap">ENTERPRISE</span>
                     </div>
                   </div>
                 )}
@@ -261,7 +261,7 @@ const BillingSettings: React.FC = () => {
                 <div className="p-6">
                   <div className={`text-center mb-8 ${plan.popular || plan.isCustom ? 'mt-4' : ''}`}>
                     {plan.isCustom && (
-                      <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-terminal-green rounded-lg flex items-center justify-center mx-auto mb-4">
+                      <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-terminal-green rounded-xl flex items-center justify-center mx-auto mb-4">
                         <Workflow className="w-8 h-8 text-black" />
                       </div>
                     )}
@@ -293,7 +293,7 @@ const BillingSettings: React.FC = () => {
                     whileTap={{ scale: 0.98 }}
                     onClick={plan.isCustom ? handleContactSales : () => canUpgrade && handleUpgrade(plan.whopPlanId!)}
                     disabled={isCurrentPlan || isLoading}
-                    className={`w-full py-3 rounded-lg font-semibold transition flex items-center justify-center space-x-2 text-sm font-mono disabled:opacity-50 disabled:cursor-not-allowed ${
+                    className={`w-full py-3 rounded-xl font-semibold transition flex items-center justify-center space-x-2 text-sm font-mono disabled:opacity-50 disabled:cursor-not-allowed ${
                       plan.popular 
                         ? 'bg-gradient-to-r from-terminal-green to-terminal-green-dark text-black hover:shadow-glow'
                         : plan.isCustom

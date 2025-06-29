@@ -177,7 +177,7 @@ const LandingPage: React.FC = () => {
       cta: 'Contact Sales',
       ctaStyle: 'custom',
       isCustom: true
-    }
+    },
   ];
 
   const faqs = [
@@ -483,7 +483,7 @@ const LandingPage: React.FC = () => {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className={`bg-glass-bg backdrop-blur-xl rounded-2xl border transition-all duration-300 relative overflow-hidden ${
+                className={`bg-glass-bg backdrop-blur-xl rounded-3xl border transition-all duration-300 relative overflow-hidden ${
                   plan.popular 
                     ? 'border-terminal-green shadow-lg shadow-terminal-green/20 scale-105' 
                     : plan.isCustom
@@ -494,9 +494,9 @@ const LandingPage: React.FC = () => {
                 {/* Badge positioned exactly ON the top border */}
                 {plan.popular && (
                   <div className="absolute -top-px left-1/2 transform -translate-x-1/2 z-30">
-                    <div className="bg-gradient-to-r from-terminal-green to-terminal-green-dark text-black px-4 py-1 text-xs font-bold flex items-center space-x-1 shadow-lg border border-terminal-green/30">
+                    <div className="bg-gradient-to-r from-terminal-green to-terminal-green-dark text-black px-4 py-1 rounded-full text-xs font-bold flex items-center space-x-1 shadow-lg border border-terminal-green/30">
                       <Star className="w-3 h-3 flex-shrink-0" />
-                      <span>MOST POPULAR</span>
+                      <span className="whitespace-nowrap">MOST POPULAR</span>
                     </div>
                   </div>
                 )}
@@ -504,9 +504,9 @@ const LandingPage: React.FC = () => {
                 {/* Enterprise badge positioned exactly ON the top border */}
                 {plan.isCustom && (
                   <div className="absolute -top-px left-1/2 transform -translate-x-1/2 z-30">
-                    <div className="bg-gradient-to-r from-green-500 to-terminal-green text-black px-4 py-1 text-xs font-bold flex items-center space-x-1 shadow-lg border border-green-500/30">
+                    <div className="bg-gradient-to-r from-green-500 to-terminal-green text-black px-4 py-1 rounded-full text-xs font-bold flex items-center space-x-1 shadow-lg border border-green-500/30">
                       <Workflow className="w-3 h-3 flex-shrink-0" />
-                      <span>ENTERPRISE</span>
+                      <span className="whitespace-nowrap">ENTERPRISE</span>
                     </div>
                   </div>
                 )}
