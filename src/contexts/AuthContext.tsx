@@ -38,7 +38,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       'unlimited_profiles': ['pro', 'team', 'enterprise'],
       'all_ai_models': ['pro', 'team', 'enterprise'],
       'custom_templates': ['pro', 'team', 'enterprise'],
-      'google_drive_integration': ['pro', 'team', 'enterprise'], // Now available for Pro+
+      'integrations_access': ['pro', 'team', 'enterprise'], // Integrations available for Pro+
       'team_workspace': ['team', 'enterprise'], // Enterprise includes team features
       'project_folders': ['team', 'enterprise'],
       'team_members': ['team', 'enterprise'],

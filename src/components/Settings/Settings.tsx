@@ -5,7 +5,6 @@ import { useAuth } from '../../contexts/AuthContext';
 import BillingSettings from './BillingSettings';
 import { motion } from 'framer-motion';
 import { aiService } from '../../services/aiService';
-import { googleDocsService } from '../../services/googleDocsService';
 
 const Settings: React.FC = () => {
   const { profiles, prompts, clearMessages } = useApp();
@@ -23,15 +22,10 @@ const Settings: React.FC = () => {
     local_llm: localStorage.getItem('local_llm_base_url') || 'http://localhost:5000/api',
   });
   const [localModelStatus, setLocalModelStatus] = useState<Record<string, string>>({});
-  const [googleDocsConfig, setGoogleDocsConfig] = useState({
-    apiKey: localStorage.getItem('google_docs_api_key') || '',
-    clientId: localStorage.getItem('google_docs_client_id') || '',
-  });
 
   const tabs = [
     { id: 'general', label: 'General', icon: User },
     { id: 'api', label: 'AI Models & API', icon: Bot },
-    { id: 'integrations', label: 'Integrations', icon: FileText },
     { id: 'billing', label: 'Billing & Plans', icon: CreditCard },
   ];
 
@@ -57,11 +51,6 @@ const Settings: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Load Google Docs config on mount
-  useEffect(() => {
-    googleDocsService.loadConfig();
-  }, []);
-
   const handleButtonClick = (buttonId: string, action: () => void) => {
     setButtonStates(prev => ({ ...prev, [buttonId]: true }));
     action();
@@ -80,28 +69,6 @@ const Settings: React.FC = () => {
     localStorage.setItem(`${provider}_base_url`, url);
     setLocalUrls(prev => ({ ...prev, [provider]: url }));
     aiService.setBaseUrl(provider, url);
-  };
-
-  const handleSaveGoogleDocsConfig = async () => {
-    try {
-      await googleDocsService.initialize(googleDocsConfig.apiKey, googleDocsConfig.clientId);
-      alert('Google Docs configuration saved successfully!');
-    } catch (error) {
-      alert('Failed to save Google Docs configuration. Please check your credentials.');
-    }
-  };
-
-  const handleTestGoogleDocs = async () => {
-    try {
-      const authenticated = await googleDocsService.authenticate();
-      if (authenticated) {
-        alert('Google Docs connection successful!');
-      } else {
-        alert('Google Docs authentication failed.');
-      }
-    } catch (error) {
-      alert('Google Docs test failed. Please check your configuration.');
-    }
   };
 
   const handleClearAllData = () => {
@@ -544,138 +511,6 @@ const Settings: React.FC = () => {
                 <p>• Local models keep all data on your machine - nothing is sent externally</p>
                 <p>• Auto-detection checks for running local models every 30 seconds</p>
                 <p>• You can use any combination of cloud and local models seamlessly</p>
-              </div>
-            </div>
-          </div>
-        );
-
-      case 'integrations':
-        return (
-          <div className="space-y-8">
-            {/* Google Docs Integration */}
-            <div className="bg-card-bg rounded-xl p-6 border border-border-light">
-              <div className="flex items-center space-x-4 mb-6">
-                <div className="w-12 h-12 bg-gradient-to-br from-accent-blue to-accent-blue-light rounded-lg flex items-center justify-center">
-                  <FileText className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-white font-mono">Google Docs Integration</h3>
-                  <p className="text-text-gray text-sm font-mono">Import content from your Google Docs to enhance context profiles</p>
-                </div>
-              </div>
-              
-              <div className="space-y-6">
-                <div>
-                  <label className="block text-sm font-medium text-text-gray mb-2 font-mono">
-                    Google API Key
-                  </label>
-                  <input
-                    type="password"
-                    value={googleDocsConfig.apiKey}
-                    onChange={(e) => setGoogleDocsConfig(prev => ({ ...prev, apiKey: e.target.value }))}
-                    placeholder="Get from Google Cloud Console"
-                    className="w-full bg-gray-800 border border-border-gray rounded-lg px-4 py-3 text-white focus:border-terminal-green focus:outline-none font-mono text-sm"
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-text-gray mb-2 font-mono">
-                    OAuth Client ID
-                  </label>
-                  <input
-                    type="text"
-                    value={googleDocsConfig.clientId}
-                    onChange={(e) => setGoogleDocsConfig(prev => ({ ...prev, clientId: e.target.value }))}
-                    placeholder="Get from Google Cloud Console"
-                    className="w-full bg-gray-800 border border-border-gray rounded-lg px-4 py-3 text-white focus:border-terminal-green focus:outline-none font-mono text-sm"
-                  />
-                </div>
-                
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    animate={buttonStates['save-google-docs'] ? { 
-                      backgroundColor: '#00FF91', 
-                      color: '#000000',
-                      scale: [1, 1.05, 1]
-                    } : {}}
-                    onClick={() => handleButtonClick('save-google-docs', handleSaveGoogleDocsConfig)}
-                    className="bg-terminal-green text-black px-6 py-3 rounded-lg font-medium hover:shadow-glow transition font-mono"
-                  >
-                    {buttonStates['save-google-docs'] ? 'Saved!' : 'Save Config'}
-                  </motion.button>
-                  
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    animate={buttonStates['test-google-docs'] ? { 
-                      backgroundColor: '#3b82f6', 
-                      scale: [1, 1.05, 1]
-                    } : {}}
-                    onClick={() => handleButtonClick('test-google-docs', handleTestGoogleDocs)}
-                    className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition font-mono"
-                  >
-                    {buttonStates['test-google-docs'] ? 'Testing...' : 'Test Connection'}
-                  </motion.button>
-                </div>
-              </div>
-              
-              <div className="mt-8 p-6 bg-blue-900/20 rounded-lg border border-blue-500/30">
-                <h4 className="text-white font-medium mb-3 font-mono">Setup Instructions:</h4>
-                <ol className="text-sm text-text-gray space-y-2 font-mono">
-                  <li>1. Go to Google Cloud Console</li>
-                  <li>2. Enable Google Docs API and Google Drive API</li>
-                  <li>3. Create credentials (API Key + OAuth 2.0 Client ID)</li>
-                  <li>4. Add your domain to authorized origins</li>
-                  <li>5. Enter credentials above and test connection</li>
-                </ol>
-              </div>
-            </div>
-
-            {/* Coming Soon Integrations */}
-            <div className="bg-card-bg rounded-xl p-6 border border-border-light opacity-60">
-              <h3 className="text-xl font-semibold text-white mb-6 font-mono">Coming Soon</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="flex items-center space-x-4 p-4 bg-gray-800 rounded-lg border border-border-gray">
-                  <div className="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center">
-                    <span className="text-white text-sm font-bold">S</span>
-                  </div>
-                  <div>
-                    <p className="text-white font-medium font-mono">Slack Integration</p>
-                    <p className="text-text-gray text-xs font-mono">Import team conversations</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-center space-x-4 p-4 bg-gray-800 rounded-lg border border-border-gray">
-                  <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-                    <span className="text-white text-sm font-bold">N</span>
-                  </div>
-                  <div>
-                    <p className="text-white font-medium font-mono">Notion Integration</p>
-                    <p className="text-text-gray text-xs font-mono">Sync with Notion pages</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-center space-x-4 p-4 bg-gray-800 rounded-lg border border-border-gray">
-                  <div className="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center">
-                    <span className="text-white text-sm font-bold">Z</span>
-                  </div>
-                  <div>
-                    <p className="text-white font-medium font-mono">Zapier Integration</p>
-                    <p className="text-text-gray text-xs font-mono">Automate workflows</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-center space-x-4 p-4 bg-gray-800 rounded-lg border border-border-gray">
-                  <div className="w-10 h-10 bg-orange-600 rounded-lg flex items-center justify-center">
-                    <span className="text-white text-sm font-bold">A</span>
-                  </div>
-                  <div>
-                    <p className="text-white font-medium font-mono">API Access</p>
-                    <p className="text-text-gray text-xs font-mono">Custom integrations</p>
-                  </div>
-                </div>
               </div>
             </div>
           </div>

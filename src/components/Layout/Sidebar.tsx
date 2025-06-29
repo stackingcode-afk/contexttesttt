@@ -17,7 +17,7 @@ import {
   Edit,
   Trash2,
   Plus,
-  HardDrive
+  Puzzle
 } from 'lucide-react';
 import { useApp } from '../../contexts/AppContext';
 import { useAuth } from '../../contexts/AuthContext';
@@ -45,7 +45,7 @@ const Sidebar: React.FC<SidebarProps> = ({
     { id: 'profiles', label: 'Profiles', icon: User, badge: profiles.length },
     { id: 'chat', label: 'AI Chat', icon: MessageSquare, badge: null },
     { id: 'prompts', label: 'Prompt Library', icon: BookOpen, badge: null },
-    { id: 'google-drive', label: 'Google Drive', icon: HardDrive, badge: null, requiresFeature: 'google_drive_integration' },
+    { id: 'integrations', label: 'Integrations', icon: Puzzle, badge: null, requiresFeature: 'integrations_access' },
     { id: 'team', label: 'Team Workspace', icon: Users, badge: null, requiresFeature: 'team_workspace' },
     { id: 'settings', label: 'Settings', icon: Settings, badge: null },
   ];
@@ -356,7 +356,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             )}
           </motion.button>
         </div>
-      </motion.div>
+      </div>
 
       {/* Click outside to close profile actions */}
       {showProfileActions && (
