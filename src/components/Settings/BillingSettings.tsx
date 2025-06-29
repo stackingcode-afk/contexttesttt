@@ -237,20 +237,20 @@ const BillingSettings: React.FC = () => {
                     : 'border-border-light hover:border-terminal-green/50'
                 }`}
               >
-                {/* Badge positioned exactly ON the top border - like your reference image */}
+                {/* Badge positioned exactly ON the top border */}
                 {plan.popular && (
-                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30">
-                    <div className="bg-gradient-to-r from-terminal-green to-terminal-green-dark text-black px-4 py-1 rounded-full text-xs font-bold font-mono flex items-center space-x-1 shadow-lg border border-terminal-green/30">
+                  <div className="absolute -top-px left-1/2 transform -translate-x-1/2 z-30">
+                    <div className="bg-gradient-to-r from-terminal-green to-terminal-green-dark text-black px-4 py-1 text-xs font-bold font-mono flex items-center space-x-1 shadow-lg border border-terminal-green/30">
                       <Star className="w-3 h-3 flex-shrink-0" />
                       <span>MOST POPULAR</span>
                     </div>
                   </div>
                 )}
 
-                {/* Enterprise badge positioned exactly ON the top border - like your reference image */}
+                {/* Enterprise badge positioned exactly ON the top border */}
                 {plan.isCustom && (
-                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30">
-                    <div className="bg-gradient-to-r from-green-500 to-terminal-green text-black px-4 py-1 rounded-full text-xs font-bold font-mono flex items-center space-x-1 shadow-lg border border-green-500/30">
+                  <div className="absolute -top-px left-1/2 transform -translate-x-1/2 z-30">
+                    <div className="bg-gradient-to-r from-green-500 to-terminal-green text-black px-4 py-1 text-xs font-bold font-mono flex items-center space-x-1 shadow-lg border border-green-500/30">
                       <Workflow className="w-3 h-3 flex-shrink-0" />
                       <span>ENTERPRISE</span>
                     </div>
