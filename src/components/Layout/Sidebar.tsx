@@ -356,7 +356,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             )}
           </motion.button>
         </div>
-      </div>
+      </motion.div>
 
       {/* Click outside to close profile actions */}
       {showProfileActions && (
