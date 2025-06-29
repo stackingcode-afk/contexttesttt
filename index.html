@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ContxtProfile.com - AI Context Management Platform</title>
+    <meta name="description" content="Structure context for AI agents, improve prompt quality, and make GPT/Gemini/Claude models deliver business-relevant outputs." />
+    
+    <!-- Preload fonts for better performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Meta tags for better SEO and social sharing -->
+    <meta property="og:title" content="ContxtProfile.com - AI Context Management Platform" />
+    <meta property="og:description" content="Structure context for AI agents, improve prompt quality, and make GPT/Gemini/Claude models deliver business-relevant outputs." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://contxtprofile.com" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ContxtProfile.com - AI Context Management Platform" />
+    <meta name="twitter:description" content="Structure context for AI agents, improve prompt quality, and make GPT/Gemini/Claude models deliver business-relevant outputs." />
+    
+    <!-- Theme color for mobile browsers -->
+    <meta name="theme-color" content="#00FF91" />
+    
+    <!-- Prevent FOUC (Flash of Unstyled Content) -->
+    <style>
+      body {
+        background: #030305;
+        color: #ffffff;
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      }
+      
+      /* Loading animation */
+      .loading-spinner {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 3px solid rgba(0, 255, 145, 0.3);
+        border-radius: 50%;
+        border-top-color: #00FF91;
+        animation: spin 1s ease-in-out infinite;
+      }
+      
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+      
+      /* Hide scrollbar but keep functionality */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      
+      ::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.1);
+      }
+      
+      ::-webkit-scrollbar-thumb {
+        background: rgba(0, 255, 145, 0.3);
+        border-radius: 3px;
+      }
+      
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 255, 145, 0.5);
+      }
+    </style>
+  </head>
+  <body class="bg-darkest-bg text-text-primary">
+    <div id="root">
+      <!-- Loading fallback -->
+      <div style="display: flex; align-items: center; justify-content: center; height: 100vh; flex-direction: column; gap: 1rem;">
+        <div class="loading-spinner"></div>
+        <p style="color: #00FF91; font-family: 'JetBrains Mono', monospace; font-size: 14px;">Loading ContxtProfile...</p>
+      </div>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
