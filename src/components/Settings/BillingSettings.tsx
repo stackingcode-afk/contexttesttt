@@ -219,7 +219,6 @@ const BillingSettings: React.FC = () => {
           {plans.map((plan, index) => {
             const isCurrentPlan = currentPlan === plan.id;
             const canUpgrade = currentPlan !== plan.id;
-            const hasBadge = plan.popular || plan.isCustom;
             
             return (
               <motion.div
@@ -238,7 +237,7 @@ const BillingSettings: React.FC = () => {
                     : 'border-border-light hover:border-terminal-green/50'
                 }`}
                 style={{ 
-                  paddingTop: hasBadge ? '4rem' : '2rem',
+                  paddingTop: '4rem', // Give ALL cards enough top padding for badges
                   paddingBottom: '2rem',
                   paddingLeft: '1.5rem',
                   paddingRight: '1.5rem'
