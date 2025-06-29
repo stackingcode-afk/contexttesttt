@@ -236,7 +236,12 @@ const BillingSettings: React.FC = () => {
                     ? 'border-green-500/50'
                     : 'border-border-light hover:border-terminal-green/50'
                 }`}
-                style={{ paddingTop: plan.popular || plan.isCustom ? '3rem' : '1.5rem', paddingBottom: '1.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}
+                style={{ 
+                  paddingTop: plan.popular || plan.isCustom ? '3.5rem' : '1.5rem',
+                  paddingBottom: '1.5rem',
+                  paddingLeft: '1.5rem',
+                  paddingRight: '1.5rem'
+                }}
               >
                 {/* Popular badge */}
                 {plan.popular && (

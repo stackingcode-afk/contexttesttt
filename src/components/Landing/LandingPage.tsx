@@ -489,7 +489,12 @@ const LandingPage: React.FC = () => {
                     ? 'border-green-500'
                     : 'border-glass-border hover:border-glass-border-hover'
                 }`}
-                style={{ paddingTop: plan.popular || plan.isCustom ? '3rem' : '1.5rem', paddingBottom: '1.5rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}
+                style={{ 
+                  paddingTop: plan.popular || plan.isCustom ? '3.5rem' : '1.5rem',
+                  paddingBottom: '1.5rem',
+                  paddingLeft: '1.5rem',
+                  paddingRight: '1.5rem'
+                }}
               >
                 {plan.popular && (
                   <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
