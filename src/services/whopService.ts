@@ -327,7 +327,7 @@ class WhopService {
     }
   }
 
-  // Get available plans - ONLY CORE PLANS (no duplicate enterprise)
+  // Get available plans - ONLY CORE PLANS (removed white label options)
   getAvailablePlans() {
     return [
       {
@@ -375,7 +375,7 @@ class WhopService {
           'Shared Library',
           'Team Management',
           'Analytics',
-          'White-label Options'
+          'Advanced Integrations'
         ],
         whopPlanId: 'plan_team_monthly_placeholder',
         popular: false,

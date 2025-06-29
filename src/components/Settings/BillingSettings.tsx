@@ -227,32 +227,7 @@ const BillingSettings: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
                 whileHover={!isCurrentPlan ? { scale: 1.02 } : {}}
-                className="relative"
-              >
-                {/* Badge positioned OUTSIDE and ABOVE the card - Single line with proper spacing */}
-                {plan.popular && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20">
-                    <div className="bg-gradient-to-r from-terminal-green to-terminal-green-dark text-black px-4 py-1.5 rounded-full text-xs font-bold font-mono flex items-center space-x-1.5 shadow-lg whitespace-nowrap">
-                      <Star className="w-3 h-3 flex-shrink-0" />
-                      <span>MOST POPULAR</span>
-                    </div>
-                  </div>
-                )}
-
-                {/* Enterprise badge positioned OUTSIDE and ABOVE the card - Single line */}
-                {plan.isCustom && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20">
-                    <div className="bg-gradient-to-r from-green-500 to-terminal-green text-black px-4 py-1.5 rounded-full text-xs font-bold font-mono flex items-center space-x-1.5 shadow-lg whitespace-nowrap">
-                      <Workflow className="w-3 h-3 flex-shrink-0" />
-                      <span>ENTERPRISE</span>
-                    </div>
-                  </div>
-                )}
-
-                {/* Card with consistent padding and proper top margin for badges */}
-                <div className={`bg-card-bg rounded-xl p-6 border transition relative overflow-hidden ${
-                  plan.popular || plan.isCustom ? 'mt-4' : ''
-                } ${
+                className={`bg-card-bg rounded-xl border transition relative overflow-hidden ${
                   isCurrentPlan 
                     ? 'border-terminal-green shadow-glow' 
                     : plan.popular 
@@ -260,8 +235,31 @@ const BillingSettings: React.FC = () => {
                     : plan.isCustom
                     ? 'border-green-500/50'
                     : 'border-border-light hover:border-terminal-green/50'
-                }`}>
-                  <div className="text-center mb-8">
+                }`}
+              >
+                {/* Badge positioned ON the top border of the card - Single line */}
+                {plan.popular && (
+                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-20">
+                    <div className="bg-gradient-to-r from-terminal-green to-terminal-green-dark text-black px-4 py-1.5 rounded-full text-xs font-bold font-mono flex items-center space-x-1.5 shadow-lg whitespace-nowrap">
+                      <Star className="w-3 h-3 flex-shrink-0" />
+                      <span>MOST POPULAR</span>
+                    </div>
+                  </div>
+                )}
+
+                {/* Enterprise badge positioned ON the top border of the card - Single line */}
+                {plan.isCustom && (
+                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-20">
+                    <div className="bg-gradient-to-r from-green-500 to-terminal-green text-black px-4 py-1.5 rounded-full text-xs font-bold font-mono flex items-center space-x-1.5 shadow-lg whitespace-nowrap">
+                      <Workflow className="w-3 h-3 flex-shrink-0" />
+                      <span>ENTERPRISE</span>
+                    </div>
+                  </div>
+                )}
+
+                {/* Card content with proper padding */}
+                <div className="p-6">
+                  <div className={`text-center mb-8 ${plan.popular || plan.isCustom ? 'mt-4' : ''}`}>
                     {plan.isCustom && (
                       <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-terminal-green rounded-lg flex items-center justify-center mx-auto mb-4">
                         <Workflow className="w-8 h-8 text-black" />
